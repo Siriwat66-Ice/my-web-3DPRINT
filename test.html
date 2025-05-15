@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>สถานะการแจ้งซ่อม</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4eee9;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .status-working {
+      color: green;
+      font-weight: bold;
+    }
+    .status-repairing {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>สถานะการแจ้งซ่อม</h1>
+  <div id="report-list">กำลังโหลดข้อมูล...</div>
+
+  <script>
+    fetch("https://script.google.com/macros/s/AKfycbyX7gx5uDKi6dRZ_bcd4dZE-WWgaJvXxwithOvccypl2E7nsTKWAORJbnbcbwFLm30M/exec")
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById("report-list");
+        list.innerHTML = "";
+        data.reverse().forEach(entry => {
+          const statusClass = entry["สถานะ"] === "ใช้งานปกติ" ? "status-working" : "status-repairing";
+          list.innerHTML += `
+            <div class="card">
+              <strong>ชื่อผู้แจ้ง:</strong> ${entry["ชื่อผู้แจ้ง"] || "-"}<br>
+              <strong>หมายเลขเครื่อง:</strong> ${entry["หมายเลขเครื่อง"] || "-"}<br>
+              <strong>ปัญหา:</strong> ${entry["ปัญหา"] || "-"}<br>
+              <strong>สถานะ:</strong> <span class="${statusClass}">${entry["สถานะ"] || "-"}</span><br>
+              <small>${entry["timestamp"] || ""}</small>
+            </div>
+          `;
+        });
+      })
+      .catch(error => {
+        document.getElementById("report-list").innerHTML = "โหลดข้อมูลไม่สำเร็จ";
+        console.error("เกิดข้อผิดพลาด:", error);
+      });
+  </script>
+</body>
+</html>

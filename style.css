@@ -179,5 +179,33 @@
     margin: 0 auto;
     padding: 20px;
   }
+  .content {
+    background-color: #fff;        /* พื้นหลังขาว */
+    border: 2px solid #d97e23;    /* เส้นกรอบสีส้มตามธีม */
+    border-radius: 10px;           /* มุมโค้งมน */
+    box-shadow: 0 4px 10px rgba(217, 126, 35, 0.3); /* เงานุ่มๆ เพิ่มมิติ */
+    padding: 30px 40px;            /* เว้นระยะเนื้อหาข้างใน */
+    max-width: 800px;
+    margin: 40px auto;             /* เว้นขอบบน-ล่าง และจัดกึ่งกลาง */
+    color: #472918;                /* สีตัวอักษรให้เข้ากับธีม */
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .content h1 {
+    color: #d97e23;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .content ol li {
+    margin-bottom: 20px;
+  }
+  
+  .content ol li strong {
+    color: #5e4b3c;
+  }
+  
   
   

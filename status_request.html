@@ -1,53 +1,27 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>สถานะการแจ้งซ่อม</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f4eee9;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #472918;
-    }
-
-    .card {
-      background: white;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>สถานะการแจ้งซ่อม</h1>
-  <div id="report-list">กำลังโหลดข้อมูล...</div>
+  <header>
+    <div class="header-inner">
+      <img src="crop.png" alt="โลโก้" class="logo" />
+      <nav class="top-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="report.html">การแจ้งซ่อม</a>
+        <a href="status_request.html">สถานะการแจ้งซ่อม</a>
+        <a href="manage.html" class="active">จัดการข้อมูล</a>
+      </nav>
+    </div>
+  </header>
 
-  <script>
-    fetch("https://script.google.com/macros/s/AKfycbwzfcklbPXH9_IShIB_ulm2Pu3kGp-GBPJ-eBr77LLP__HWOatt9r_h4L7nB8miDZ1-/exec")
-      .then(response => response.json())
-      .then(data => {
-        const list = document.getElementById("report-list");
-        list.innerHTML = "";
-        data.reverse().forEach(entry => {
-          list.innerHTML += `
-            <div class="card">
-              <strong>ชื่อผู้แจ้ง:</strong> ${entry["ชื่อผู้แจ้ง"] || "-"}<br>
-              <strong>หมายเลขเครื่อง:</strong> ${entry["หมายเลขเครื่อง"] || "-"}<br>
-              <strong>ปัญหา:</strong> ${entry["ปัญหา"] || "-"}<br>
-              <small>${entry["timestamp"] || ""}</small>
-            </div>
-          `;
-        });
-      })
-      .catch(error => {
-        document.getElementById("report-list").innerHTML = "โหลดข้อมูลไม่สำเร็จ";
-        console.error("เกิดข้อผิดพลาด:", error);
-      });
-  </script>
+  <main class="content">
+    <h1>จัดการข้อมูล</h1>
+    <p>หน้าแดชบอร์ดสำหรับผู้ดูแลระบบ...</p>
+  </main>
 </body>
 </html>
