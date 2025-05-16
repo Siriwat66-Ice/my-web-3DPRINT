@@ -2,9 +2,84 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>สถานะการแจ้งซ่อม</title>
+  <title>สถานะเครื่องจักร</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f4eee9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f4eee9;
+      padding: 10px 20px;
+      border-bottom: 2px solid #d97e23;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      height: 80px;
+    }
+
+    .top-nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #472918;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .top-nav a:hover {
+      background-color: #d97e23;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #d97e23;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    td {
+      background-color: #fff;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -14,13 +89,51 @@
         <a href="index.html">หน้าแรก</a>
         <a href="report.html">การแจ้งซ่อม</a>
         <a href="status_request.html" class="active">สถานะการแจ้งซ่อม</a>
-        <a href="contact.html">ติดต่อเรา</a>
+        <a href="manage.html">ติดต่อเรา</a>
       </nav>
     </div>
   </header>
 
   <main class="content">
-    <h1>สถานะการแจ้งซ่อม</h1>
+    <h1>สถานะเครื่องจักร</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ชื่อเครื่อง</th>
+          <th>ปัญหา</th>
+          <th>สถานะ</th>
+        </tr>
+      </thead>
+      <tbody id="status-table-body">
+        <tr><td colspan="3">กำลังโหลดข้อมูล...</td></tr>
+      </tbody>
+    </table>
   </main>
+
+  <script>
+    function loadStatusData() {
+      google.script.run.withSuccessHandler(function(data) {
+        const tbody = document.getElementById('status-table-body');
+        tbody.innerHTML = ''; // ล้างข้อมูลเก่า
+
+        if (data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="3">ไม่พบข้อมูล</td></tr>';
+          return;
+        }
+
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.machine}</td>
+            <td>${row.issue}</td>
+            <td>${row.status}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }).getStatusData(); // เรียกใช้ฟังก์ชันใน Code.gs
+    }
+
+    window.onload = loadStatusData;
+  </script>
 </body>
 </html>
