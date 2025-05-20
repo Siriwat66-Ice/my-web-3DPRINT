@@ -6,12 +6,12 @@
   }
   body {
     font-family: 'Sarabun', sans-serif;
-    background-color: #bf671f;
+    background-color: #fcfcfc;
   }
   
   /* HEADER & TOP NAV */
   header {
-    background-color: #fffcfc;
+    background-color: #e3bc89;
     padding: 10px 20px;
   }
   
@@ -37,7 +37,7 @@
     color: #040404;
     font-weight: bold;
     padding: 10px;
-    transition: background-color 0.2s;
+    transition: background-color 0.4s;
   }
   
   .top-nav a {
