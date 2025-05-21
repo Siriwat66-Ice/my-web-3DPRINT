@@ -295,10 +295,11 @@
 /* ขนาดของ iframe (Google Form) */
 .form-wrapper iframe {
   width: 100%;
-  height: 1000px; /* หรือเพิ่มอีกตามความยาวฟอร์มจริง */
+  height: 1000px; /* หรือปรับตามความสูงของฟอร์ม */
   border: none;
   border-radius: 8px;
 }
+
 
 }
 

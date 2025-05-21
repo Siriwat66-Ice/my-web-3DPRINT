@@ -4,7 +4,55 @@
   <meta charset="UTF-8" />
   <title>การแจ้งซ่อม</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #e3bc89;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .top-nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .top-nav a.active {
+      font-weight: bold;
+      color: #ff7b00;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .form-wrapper h2 {
+      text-align: center;
+    }
+
+    .form-wrapper iframe {
+      width: 100%;
+      height: 1000px;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
@@ -24,62 +72,10 @@
 <div class="form-wrapper">
   <h2>กรอกแบบฟอร์มแจ้งซ่อม</h2>
   <iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLScKb9aDGx9snEuB0McuEVJZWfvTfp1wYPTT0EEUFB7FpYn5bg/viewform?embedded=true"
-    allowfullscreen>
+    src="https://docs.google.com/forms/d/e/1FAIpQLScKb9aDGx9snEuB0McuEVJZWfvTfp1wYPTT0EEUFB7FpYn5bg/viewform?embedded=true">
     กำลังโหลด…
   </iframe>
 </div>
-
-
-<script>
-  async function fetchSheetData() {
-    const sheetId = "1irQEcwQC4DNmjzVt4h3d244XD8XtvzraNtmQ6mP4NHU";
-    const sheetName = "Form Responses 1";
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("โหลดข้อมูลไม่สำเร็จ");
-
-      const csvText = await response.text();
-      const rows = csvText.trim().split('\n').map(row =>
-        row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
-      );
-      rows.shift(); // ลบ header
-      return rows;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
-
-  function renderTable(rows) {
-    const tbody = document.getElementById('list-body');
-    tbody.innerHTML = '';
-
-    if (!rows || rows.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="4">ไม่มีข้อมูลแจ้งซ่อม</td></tr>';
-      return;
-    }
-
-    rows.forEach(row => {
-      const [timestamp, machine, reporter, description] = row;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${new Date(timestamp).toLocaleString()}</td>
-        <td>${machine}</td>
-        <td>${reporter}</td>
-        <td>${description}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', async () => {
-    const data = await fetchSheetData();
-    renderTable(data);
-  });
-</script>
 
 </body>
 </html>
