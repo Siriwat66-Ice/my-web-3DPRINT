@@ -6,44 +6,76 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
   <style>
-    body {
+    /* Base */
+    * {
       margin: 0;
-      font-family: sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #fcfcfc;
+    }
+
+    /* HEADER & TOP NAV */
+    header {
+      background-color: #e3bc89;
+      padding: 10px 20px;
     }
 
     .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 20px;
-      background-color: #e3bc89;
     }
 
+    /* ปรับขนาดโลโก้ให้พอดี */
     .logo {
-      height: 40px;
+      height: 60px; /* ลดจาก 100px */
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+    }
+
+    /* เมนู */
+    .top-nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
     }
 
     .top-nav a {
-      margin-left: 15px;
+      font-size: 20px;  /* เพิ่มขนาดฟอนต์ */
+      font-weight: bold;
+      color: #472918;
+      padding: 10px;
       text-decoration: none;
-      color: #333;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.4s;
     }
 
     .top-nav a.active {
-      font-weight: bold;
-      color: #ff7b00;
+      background-color: #ff8000;
+      color: white;
+      border-radius: 4px;
     }
 
+    /* FORM WRAPPER */
     .form-wrapper {
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 20px;
-      box-sizing: border-box;
+      max-width: 800px;
+      margin: 80px auto 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
 
     .form-wrapper h2 {
-      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #d97e23;
     }
 
     .form-wrapper iframe {
