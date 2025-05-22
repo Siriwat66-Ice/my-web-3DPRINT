@@ -1,9 +1,60 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbzwhhneeZRc56vhFRuHtX0_VYc4y-wuufjur5OcMed5OpNSSykbtFL1OXHcJaGxkG0h4w/exec";
+const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // เปลี่ยนเป็น URL จริงของคุณ
+
+let existingBookings = []; // เก็บข้อมูลจองทั้งหมดที่โหลดมา
+
+function updateMachineOptions() {
+  const machineStatus = {
+    "3D Printer 1": "repair",
+    "3D Printer 2": "available",
+    "3D Printer 3": "available",
+    "3D Printer 4": "available"
+  };
+
+  const machineSelect = document.getElementById("machine");
+  machineSelect.innerHTML = "";
+
+  for (const [machine, status] of Object.entries(machineStatus)) {
+    const option = document.createElement("option");
+    option.value = machine;
+    option.textContent = machine + (status === "repair" ? " (ซ่อมอยู่)" : "");
+    if (status === "repair") {
+      option.disabled = true;
+    }
+    machineSelect.appendChild(option);
+  }
+}
+
+function loadBookings() {
+  fetch(scriptURL)
+    .then(response => response.json())
+    .then(data => {
+      existingBookings = data; // เก็บข้อมูลจองทั้งหมด
+
+      const bookingTableBody = document.querySelector("#bookingTable tbody");
+      bookingTableBody.innerHTML = "";
+
+      data.forEach(entry => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${entry["Name"]}</td>
+          <td>${entry["Machine"]}</td>
+          <td>${entry["Date"]}</td>
+          <td>${entry["Time"]}</td>
+        `;
+        bookingTableBody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error("Error loading bookings:", error);
+      alert("❌ ไม่สามารถโหลดข้อมูลรายการจองได้");
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  const bookingForm = document.getElementById("bookingForm");
-  const bookingTableBody = document.querySelector("#bookingTable tbody");
+  updateMachineOptions();
+  loadBookings();
 
+  const bookingForm = document.getElementById("bookingForm");
   bookingForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -12,54 +63,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const date = document.getElementById("bookingDate").value;
     const time = document.getElementById("bookingTime").value;
 
-    // ตรวจสอบข้อมูลไม่ว่าง
     if (!name || !machine || !date || !time) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
 
-    // ตรวจสอบการจองซ้ำในตาราง
-    const isDuplicate = Array.from(bookingTableBody.children).some(row => {
-      const cells = row.children;
-      return (
-        cells[1].textContent === machine &&
-        cells[2].textContent === date &&
-        cells[3].textContent === time
-      );
-    });
+    // เช็กจองซ้ำจากข้อมูลที่โหลดมา
+    const isDuplicate = existingBookings.some(entry =>
+      entry["Machine"] === machine &&
+      entry["Date"] === date &&
+      entry["Time"] === time
+    );
 
     if (isDuplicate) {
-      alert("มีการจองเครื่องนี้ในวันและเวลาเดียวกันแล้ว");
+      alert("❌ มีการจองเครื่องนี้ในวันและเวลาเดียวกันแล้ว");
       return;
     }
 
-    // เตรียมข้อมูลส่งไป Google Apps Script
     const formData = new FormData();
     formData.append("name", name);
     formData.append("machine", machine);
     formData.append("date", date);
     formData.append("time", time);
 
-    // ส่งข้อมูลด้วย fetch
     fetch(scriptURL, {
       method: "POST",
       body: formData
     })
-    .then(response => {
-      if (response.ok) {
-        // เพิ่มข้อมูลในตาราง
-        const newRow = document.createElement("tr");
-        newRow.innerHTML = `
-          <td>${name}</td>
-          <td>${machine}</td>
-          <td>${date}</td>
-          <td>${time}</td>
-        `;
-        bookingTableBody.appendChild(newRow);
-        bookingForm.reset();
+    .then(response => response.text())
+    .then(text => {
+      if (text === "success") {
         alert("✅ จองสำเร็จแล้ว!");
+        bookingForm.reset();
+        loadBookings(); // โหลดข้อมูลใหม่มาอัพเดตตารางและข้อมูล
+      } else if (text === "duplicate") {
+        alert("❌ มีการจองซ้ำในระบบแล้ว");
       } else {
-        alert("❌ ส่งข้อมูลไม่สำเร็จ");
+        alert("❌ เกิดข้อผิดพลาดในการจอง");
       }
     })
     .catch(error => {

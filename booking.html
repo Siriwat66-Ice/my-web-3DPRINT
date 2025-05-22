@@ -5,7 +5,6 @@
   <title>ระบบจองเครื่อง 3D Printer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* Header */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -44,8 +43,6 @@
       background-color: #e67e22;
       color: white;
     }
-
-    /* Main container */
     .container {
       max-width: 700px;
       margin: 30px auto 60px auto;
@@ -54,23 +51,19 @@
       border-radius: 15px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
-
     h2, h3 {
       text-align: center;
       color: #333;
     }
-
     form {
       display: flex;
       flex-direction: column;
       gap: 15px;
       margin-top: 20px;
     }
-
     label {
       font-weight: bold;
     }
-
     input, select, button {
       padding: 10px;
       font-size: 16px;
@@ -79,7 +72,6 @@
       width: 100%;
       box-sizing: border-box;
     }
-
     button {
       background-color: #4CAF50;
       color: white;
@@ -92,23 +84,12 @@
     button:hover {
       background-color: #45a049;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    iframe {
       margin-top: 30px;
+      border: none;
+      width: 100%;
+      height: 600px;
     }
-    th, td {
-      padding: 8px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-    th {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    /* Responsive */
     @media (max-width: 600px) {
       .header-inner {
         flex-direction: column;
@@ -167,17 +148,10 @@
     </form>
 
     <h3>รายการจอง</h3>
-    <table id="bookingTable">
-      <thead>
-        <tr>
-          <th>ชื่อผู้จอง</th>
-          <th>เครื่อง</th>
-          <th>วันที่</th>
-          <th>เวลา</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <iframe 
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4hXAmVMMk8q0kybSzUddqAPMLBlDio0n0vEYyV2rfCq-mrvRQOf4LcZaJ74EgRY9Qg09swsztcjW_/pubhtml?gid=0&single=true"
+      allowfullscreen>
+    </iframe>
   </div>
 </main>
 
@@ -210,7 +184,6 @@
     updateMachineOptions();
 
     const bookingForm = document.getElementById("bookingForm");
-    const bookingTableBody = document.querySelector("#bookingTable tbody");
 
     bookingForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -222,20 +195,6 @@
 
       if (!name || !machine || !date || !time) {
         alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-        return;
-      }
-
-      const isDuplicate = Array.from(bookingTableBody.children).some(row => {
-        const cells = row.children;
-        return (
-          cells[1].textContent === machine &&
-          cells[2].textContent === date &&
-          cells[3].textContent === time
-        );
-      });
-
-      if (isDuplicate) {
-        alert("มีการจองเครื่องนี้ในวันและเวลาเดียวกันแล้ว");
         return;
       }
 
@@ -256,14 +215,6 @@
       })
       .then(response => {
         if (response.ok) {
-          const newRow = document.createElement("tr");
-          newRow.innerHTML = `
-            <td>${name}</td>
-            <td>${machine}</td>
-            <td>${date}</td>
-            <td>${time}</td>
-          `;
-          bookingTableBody.appendChild(newRow);
           bookingForm.reset();
           alert("✅ จองสำเร็จแล้ว!");
         } else {
