@@ -20,9 +20,25 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-
     .content h2 {
       text-align: center;
+    }
+
+    /* แก้ไขปัญหา ol ล้นขอบบนมือถือ */
+    ol {
+      max-width: 100%;           /* ไม่เกินหน้าจอ */
+      padding-left: 20px;        /* เว้นช่องว่างซ้ายสำหรับเลขลำดับ */
+      margin: 0 15px 20px 15px;  /* เว้นขอบซ้าย-ขวาเล็กน้อย */
+      box-sizing: border-box;    /* รวม padding ในขนาด */
+      word-wrap: break-word;     /* ห่อคำเมื่อยาวเกิน */
+      overflow-wrap: break-word; /* รองรับเบราว์เซอร์หลายตัว */
+      line-height: 1.5;          /* ระยะห่างบรรทัดอ่านง่าย */
+      font-size: 1rem;           /* ปรับขนาดตัวหนังสือให้เหมาะสม */
+    }
+
+    /* ปรับให้ strong ไม่ล้น */
+    ol li strong {
+      word-break: break-word;    /* ห่อคำใน strong */
     }
   </style>
 </head>

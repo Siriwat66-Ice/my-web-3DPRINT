@@ -5,6 +5,24 @@
   <title>สถานะการทำงาน</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ปรับ iframe ให้เต็มพื้นที่หน้าจอหรือขนาดที่ต้องการ */
+    .embed-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;  /* กำหนดความกว้างสูงสุด */
+      height: 400px;     /* ความสูงของ iframe */
+      margin: 20px auto; /* จัดกึ่งกลาง */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .embed-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -23,6 +41,11 @@
   <main class="content">
     <h1>สถานะการทำงาน</h1>
     <p>รายละเอียดสถานะการทำงานของเครื่อง...</p>
+
+    <div class="embed-container">
+      <iframe src="https://oe.ink/l/mAaaWyBkO0" allowfullscreen></iframe>
+    </div>
+
   </main>
 </body>
 </html>
