@@ -2,112 +2,164 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>การแจ้งซ่อม</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+  <!-- โหลดฟอนต์ Sarabun -->
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet" />
 
   <style>
-    /* Base */
+    /* Reset เบื้องต้น */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Sarabun', sans-serif;
       background-color: #fcfcfc;
+      color: #472918;
+      line-height: 1.6;
     }
 
-    /* HEADER & TOP NAV */
+    /* HEADER */
     header {
       background-color: #e3bc89;
       padding: 10px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    /* ปรับขนาดโลโก้ให้พอดี */
     .logo {
-      height: 60px; /* ลดจาก 100px */
+      height: 60px;
       object-fit: contain;
       filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
     }
 
-    /* เมนู */
-    .top-nav {
+    nav.top-nav {
       display: flex;
-      gap: 30px;
-      align-items: center;
+      gap: 25px;
+      flex-wrap: wrap;
     }
 
-    .top-nav a {
-      font-size: 20px;  /* เพิ่มขนาดฟอนต์ */
+    nav.top-nav a {
+      font-size: 16px;
       font-weight: bold;
       color: #472918;
-      padding: 10px;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      transition: background-color 0.4s;
+      padding: 8px 14px;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .top-nav a.active {
+    nav.top-nav a:hover {
+      background-color: #d97e23;
+      color: white;
+    }
+
+    nav.top-nav a.active {
       background-color: #ff8000;
       color: white;
-      border-radius: 4px;
     }
 
-    /* FORM WRAPPER */
-    .form-wrapper {
+    /* MAIN CONTENT */
+    main.form-wrapper {
       max-width: 800px;
-      margin: 80px auto 40px auto;
+      margin: 60px auto 40px;
       padding: 30px;
-      background-color: #ffffff;
+      background-color: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
     }
 
-    .form-wrapper h2 {
+    main.form-wrapper h2 {
       font-size: 28px;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       color: #d97e23;
     }
 
-    .form-wrapper iframe {
+    main.form-wrapper iframe {
       width: 100%;
-      height: 1000px;
+      height: 700px;
       border: none;
       border-radius: 8px;
+      min-height: 400px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav.top-nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      nav.top-nav a {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      .logo {
+        height: 50px;
+      }
+
+      main.form-wrapper {
+        margin: 40px 15px;
+        padding: 20px;
+      }
+
+      main.form-wrapper h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      main.form-wrapper iframe {
+        height: 500px;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <img src="crop.png" alt="โลโก้" class="logo" />
-    <nav class="top-nav">
-      <a href="index.html">หน้าแรก</a>
-      <a href="report.html" class="active">การแจ้งซ่อม</a>
-      <a href="status_request.html">สถานะการแจ้งซ่อม</a>
-      <a href="guide_3DPRINT.html">คู่มือการใช้งานเครื่อง 3D Print</a>
-      <a href="contact.html">ติดต่อเรา</a>
-    </nav>
-  </div>
-</header>
+  <header>
+    <div class="header-inner">
+      <img src="crop.png" alt="โลโก้" class="logo" />
+      <nav class="top-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="report.html" class="active">การแจ้งซ่อม</a>
+        <a href="status_request.html">สถานะการแจ้งซ่อม</a>
+        <a href="guide_3DPRINT.html">คู่มือการใช้งานเครื่อง 3D Print</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="form-wrapper">
-  <h2>กรอกแบบฟอร์มแจ้งซ่อม</h2>
-  <iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLScKb9aDGx9snEuB0McuEVJZWfvTfp1wYPTT0EEUFB7FpYn5bg/viewform?embedded=true">
-    กำลังโหลด…
-  </iframe>
-</div>
+  <main class="form-wrapper">
+    <h2>กรอกแบบฟอร์มแจ้งซ่อม</h2>
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLScKb9aDGx9snEuB0McuEVJZWfvTfp1wYPTT0EEUFB7FpYn5bg/viewform?embedded=true" 
+      title="Google Form แจ้งซ่อม" 
+      loading="lazy"
+    >
+      กำลังโหลด…
+    </iframe>
+  </main>
 
 </body>
 </html>

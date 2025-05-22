@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ระบบจองเครื่อง 3D Printer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <img src="crop.png" alt="โลโก้ Predictive Maintenance" class="logo" />
+      <nav class="top-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="report.html">การแจ้งซ่อม</a>
+        <a href="status_request.html">สถานะการแจ้งซ่อม</a>
+        <a href="guide_3DPRINT.html">คู่มือการใช้งานเครื่อง 3D Print</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section">
+      <div class="container" style="max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; color: #333;">ระบบจองเครื่อง 3D Printer</h2>
+        <form id="bookingForm" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+          <label for="bookingName">ชื่อผู้จอง:</label>
+          <input type="text" id="bookingName" required>
+
+          <label for="machine">เลือกเครื่อง:</label>
+          <select id="machine">
+            <option value="3D Printer 1">3D Printer 1</option>
+            <option value="3D Printer 2">3D Printer 2</option>
+            <option value="3D Printer 3">3D Printer 3</option>
+            <option value="3D Printer 4">3D Printer 4</option>
+          </select>
+
+          <label for="bookingDate">วันที่:</label>
+          <input type="date" id="bookingDate" required>
+
+          <label for="bookingTime">ช่วงเวลา:</label>
+          <select id="bookingTime" required>
+            <option value="">-- เลือกช่วงเวลา --</option>
+            <option value="09:00-10:00">09:00 - 10:00</option>
+            <option value="10:00-11:00">10:00 - 11:00</option>
+            <option value="11:00-12:00">11:00 - 12:00</option>
+            <option value="13:00-14:00">13:00 - 14:00</option>
+            <option value="14:00-15:00">14:00 - 15:00</option>
+            <option value="15:00-16:00">15:00 - 16:00</option>
+            <option value="16:00-17:00">16:00 - 17:00</option>
+          </select>
+
+
+          <button type="submit" style="padding: 12px; background-color: #4CAF50; color: white; font-weight: bold; border: none; border-radius: 8px; cursor: pointer;">จองเครื่อง</button>
+        </form>
+
+        <h3 style="text-align: center; margin-top: 40px;">รายการจอง</h3>
+        <table id="bookingTable" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+          <thead>
+            <tr style="background-color: #4CAF50; color: white;">
+              <th>ชื่อผู้จอง</th>
+              <th>เครื่อง</th>
+              <th>วันที่</th>
+              <th>เวลา</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 20px; color: #777;">
+    &copy; 2025 Predictive Maintenance 3D Printer. All rights reserved.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

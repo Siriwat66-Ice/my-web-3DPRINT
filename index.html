@@ -5,7 +5,116 @@
   <title>หน้าแรก – Predictive Maintenance 3D Printer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ========== สไตล์ประกาศข่าวสาร (กล่องข่าว) ========== */
+    .news-section {
+      padding: 40px 20px;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    .news-section h2 {
+      color: #ff6600;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .news-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .news-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .news-content {
+      padding: 20px;
+    }
+
+    .news-content h3 {
+      font-size: 20px;
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .news-content p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    .news-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .news-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== สไตล์แถบประชาสัมพันธ์ล่างจอ (แบบแจ้งเตือน) ========== */
+    .announcement-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ff8000;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .announcement-poster {
+      height: 100px;
+      border-radius: 5px;
+      object-fit: contain;
+    }
+
+    .announcement-text-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .announcement-text-container p {
+      margin: 0;
+      flex: 1;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    main, footer {
+      padding-bottom: 110px; /* ป้องกันโดนแถบแจ้งเตือนทับ */
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -27,6 +136,19 @@
       <div class="hero-text">Predictive maintenance 3D printer</div>
     </section>
 
+    <!-- 🔶 ข่าวประชาสัมพันธ์ -->
+    <section class="news-section">
+      <h2>ข่าวสารประชาสัมพันธ์</h2>
+      <div class="news-card">
+        <img src="Blue and Yellow Illustrative Save Electricity Poster.png" alt="ข่าวประชาสัมพันธ์" class="news-image">
+        <div class="news-content">
+          <h3>อาคารเครื่อมือ 6</h3>
+          <p>ทางมหาวิทยาลัยได้มีการดับไฟมหาวิทยาลัยประมาณ 1 ชั่วโมง เวลา 15.00 – 16.00 น.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔷 เมนูหลัก -->
     <section class="section">
       <div class="card">
         <a href="status.html">
@@ -46,11 +168,16 @@
           <h3>การบำรุงรักษา</h3>
         </a>
       </div>
+      <div class="card">
+        <a href="booking.html">
+          <img src="Ohio.avif" alt="ไอคอนแสดงการบำรุงรักษาเครื่อง" />
+          <h3>ระบบจองเครื่อง 3D Printer</h3>
+        </a>
+      </div>
     </section>
   </main>
 
-  <footer style="text-align: center; padding: 20px; color: #777;">
-    &copy; 2025 Predictive Maintenance 3D Printer. All rights reserved.
-  </footer>
+  <!-- 🔺 แถบประชาสัมพันธ์ล่างจอ -->
+  
 </body>
 </html>
