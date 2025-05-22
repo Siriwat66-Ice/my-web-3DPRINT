@@ -62,6 +62,43 @@
       margin-bottom: 40px;
       line-height: 1.6;
     }
+
+    /* สไตล์รูปภาพพร้อมข้อความซ้อน */
+    .image-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .image-with-text {
+      position: relative;
+      max-width: 45%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .image-with-text img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .text-overlay {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      color: white;
+      background-color: rgba(0,0,0,0.5);
+      padding: 8px 12px;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+
     .videos-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -94,6 +131,12 @@
       main.content p {
         font-size: 1rem;
       }
+      .image-wrapper {
+        flex-direction: column;
+      }
+      .image-with-text {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -114,6 +157,18 @@
   <main class="content">
     <h1>คู่มือการใช้งานเครื่อง 3D Print</h1>
     <p>เรียนรู้วิธีการใช้งานเครื่อง 3D Print ผ่านวิดีโอสอนเหล่านี้</p>
+
+    <!-- รูปภาพพร้อมข้อความซ้อน -->
+    <div class="image-wrapper">
+      <div class="image-with-text">
+        <img src="ff.jpg" alt="รูปที่ 1 คู่มือการใช้งานเครื่อง 3D Print" />
+        <div class="text-overlay">เปิดเครื่องได้ที่สวิตช์ด้านหลัง</div>
+      </div>
+      <div class="image-with-text">
+        <img src="aa.jpg" alt="รูปที่ 2 คู่มือการใช้งานเครื่อง 3D Print" />
+        <div class="text-overlay">เปิดไฟด้านในเครื่องได้ที่สวิตช์ด้านหน้า</div>
+      </div>
+    </div>
 
     <div class="videos-wrapper">
       <!-- วิดีโอ 1 -->
