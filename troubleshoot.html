@@ -5,6 +5,26 @@
   <title>วิธีการแก้ปัญหาเบื้องต้น</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .video-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      max-width: 280px;
+      height: 280px;  /* เท่ากับความกว้าง ทำให้เป็นจัตุรัส */
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .content h2 {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,14 +42,26 @@
 
   <main class="content">
     <h1>วิธีการแก้ปัญหาเบื้องต้น</h1>
+
+    <h2>วิดีโอแนะนำการแก้ปัญหาเบื้องต้น</h2>
+    <div class="video-container">
+      <iframe 
+        src="https://www.youtube.com/embed/5Zk4X3Qkiv0" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
     <ol>
-      <li><strong>งานพิมพ์ไม่ติดแท่น</strong>   : ทำความสะอาดแท่นและปรับระดับแท่นพิมพ์</li>
-      <li><strong>หัวพิมพ์อุดตัน</strong>      : ทำความสะอาดหรือเปลี่ยนหัวพิมพ์ใหม่</li>
-      <li><strong>ชิ้นงานบิดงอ</strong>      : ใช้ฮีตเบดให้ร้อนและใช้เทปกาวช่วยยึด</li>
-      <li><strong>งานพิมพ์ผิดรูป</strong>      : ตรวจสอบความตึงสายพานและมอเตอร์</li>
-      <li><strong>เส้นพลาสติกดึงไม่ออก</strong>      : ตรวจสอบเส้นและหัวพิมพ์ไม่อุดตัน</li>
-      <li><strong>เครื่องเสียงดังหรือเคลื่อนที่ผิดปกติ</strong>      : หล่อลื่นและตรวจสอบสายพาน</li>
-      <li><strong>งานหยาบ</strong>      : ปรับอุณหภูมิและความเร็วพิมพ์</li>
+      <li><strong>งานพิมพ์ไม่ติดแท่น</strong> : ทำความสะอาดแท่นและปรับระดับแท่นพิมพ์</li>
+      <li><strong>หัวพิมพ์อุดตัน</strong> : ทำความสะอาดหรือเปลี่ยนหัวพิมพ์ใหม่</li>
+      <li><strong>ชิ้นงานบิดงอ</strong> : ใช้ฮีตเบดให้ร้อนและใช้เทปกาวช่วยยึด</li>
+      <li><strong>งานพิมพ์ผิดรูป</strong> : ตรวจสอบความตึงสายพานและมอเตอร์</li>
+      <li><strong>เส้นพลาสติกดึงไม่ออก</strong> : ตรวจสอบเส้นและหัวพิมพ์ไม่อุดตัน</li>
+      <li><strong>เครื่องเสียงดังหรือเคลื่อนที่ผิดปกติ</strong> : หล่อลื่นและตรวจสอบสายพาน</li>
+      <li><strong>งานหยาบ</strong> : ปรับอุณหภูมิและความเร็วพิมพ์</li>
     </ol>
   </main>
 </body>
