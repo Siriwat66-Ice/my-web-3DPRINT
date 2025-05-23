@@ -6,19 +6,26 @@ async function isSlotAvailable(machine, date, time) {
     const response = await fetch(GET_BOOKINGS_URL);
     const bookings = await response.json();
 
-    const formatDate = d => new Date(d).toISOString().split("T")[0];
+    return !bookings.some(b => {
+      const bookedMachine = (b.machine || b.Machine || "").trim();
+      const bookedDate = new Date(b.date || b.Date).toISOString().split("T")[0];
+      const bookedTime = (b.time || b.Time || "").trim();
 
-    return !bookings.some(b =>
-      b.Machine === machine &&
-      formatDate(b.Date) === date &&
-      b.Time === time
-    );
+      return (
+        bookedMachine === machine.trim() &&
+        bookedDate === date &&
+        bookedTime === time.trim()
+      );
+    });
   } catch (error) {
     console.error("Error fetching bookings:", error);
     alert("เกิดข้อผิดพลาดในการเช็คสถานะการจอง");
     return false;
   }
 }
+
+
+
 
 async function bookMachine(name, machine, date, time) {
   try {
@@ -41,15 +48,16 @@ async function bookMachine(name, machine, date, time) {
     });
 
     if (response.ok) {
-      alert("จองสำเร็จ!");
+      alert("✅ จองสำเร็จแล้ว!");
       return true;
     } else {
-      alert("เกิดข้อผิดพลาดในการจอง");
+      alert("❌ เกิดข้อผิดพลาดในการจอง");
       return false;
     }
   } catch (error) {
     console.error("Error during booking:", error);
-    alert("เกิดข้อผิดพลาดในการเชื่อมต่อ");
+    alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อ");
     return false;
   }
 }
+
