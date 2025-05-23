@@ -8,12 +8,13 @@ async function isSlotAvailable(machine, date, time) {
 
     return !bookings.some(b => {
       const bookedMachine = (b.machine || b.Machine || "").trim();
-      const bookedDate = new Date(b.date || b.Date).toISOString().split("T")[0];
+      const bookedDateRaw = b.date || b.Date;
+      const bookedDate = new Date(bookedDateRaw).toISOString().split("T")[0]; // ✅ ตัดเวลาออก
       const bookedTime = (b.time || b.Time || "").trim();
 
       return (
         bookedMachine === machine.trim() &&
-        bookedDate === date &&
+        bookedDate === date && // เปรียบเทียบวันที่หลังแปลงแล้ว
         bookedTime === time.trim()
       );
     });
@@ -23,6 +24,7 @@ async function isSlotAvailable(machine, date, time) {
     return false;
   }
 }
+
 
 
 
