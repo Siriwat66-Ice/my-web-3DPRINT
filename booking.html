@@ -43,6 +43,7 @@
       background-color: #e67e22;
       color: white;
     }
+
     .container {
       max-width: 700px;
       margin: 30px auto 60px auto;
@@ -84,12 +85,27 @@
     button:hover {
       background-color: #45a049;
     }
-    iframe {
+
+    table {
       margin-top: 30px;
-      border: none;
       width: 100%;
-      height: 600px;
+      border-collapse: collapse;
     }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
     @media (max-width: 600px) {
       .header-inner {
         flex-direction: column;
@@ -123,41 +139,48 @@
   <div class="container">
     <h2>ระบบจองเครื่อง 3D Printer</h2>
     <form id="bookingForm">
-      <label for="bookingName">ชื่อผู้จอง:</label>
-      <input type="text" id="bookingName" required />
+      <label for="name">ชื่อผู้จอง:</label>
+      <input type="text" id="name" required />
 
       <label for="machine">เลือกเครื่อง:</label>
       <select id="machine" required></select>
 
-      <label for="bookingDate">วันที่:</label>
-      <input type="date" id="bookingDate" required />
+      <label for="date">วันที่:</label>
+      <input type="date" id="date" required />
 
-      <label for="bookingTime">ช่วงเวลา:</label>
-      <select id="bookingTime" required>
+      <label for="timeslot">ช่วงเวลา:</label>
+      <select id="timeslot" required>
         <option value="">-- เลือกช่วงเวลา --</option>
-        <option value="09:00-10:00">09:00 - 10:00</option>
-        <option value="10:00-11:00">10:00 - 11:00</option>
-        <option value="11:00-12:00">11:00 - 12:00</option>
-        <option value="13:00-14:00">13:00 - 14:00</option>
-        <option value="14:00-15:00">14:00 - 15:00</option>
-        <option value="15:00-16:00">15:00 - 16:00</option>
-        <option value="16:00-17:00">16:00 - 17:00</option>
+        <option value="09:00-09:55">09:00 - 09:55</option>
+        <option value="10:00-10:55">10:00 - 10:55</option>
+        <option value="11:00-11:55">11:00 - 11:55</option>
+        <option value="13:00-13:55">13:00 - 13:55</option>
+        <option value="14:00-14:55">14:00 - 14:55</option>
+        <option value="15:00-15:55">15:00 - 15:55</option>
+        <option value="16:00-16:55">16:00 - 16:55</option>
       </select>
 
       <button type="submit">จองเครื่อง</button>
     </form>
 
+    <div class="message" id="message"></div>
+
     <h3>รายการจอง</h3>
-    <iframe 
-      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4hXAmVMMk8q0kybSzUddqAPMLBlDio0n0vEYyV2rfCq-mrvRQOf4LcZaJ74EgRY9Qg09swsztcjW_/pubhtml?gid=0&single=true"
-      allowfullscreen>
-    </iframe>
+    <table id="bookingTable">
+      <thead>
+        <tr>
+          <th>ชื่อผู้จอง</th>
+          <th>เครื่อง</th>
+          <th>วันที่</th>
+          <th>ช่วงเวลา</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 </main>
 
 <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzwhhneeZRc56vhFRuHtX0_VYc4y-wuufjur5OcMed5OpNSSykbtFL1OXHcJaGxkG0h4w/exec";
-
   const machineStatus = {
     "3D Printer 1": "repair",
     "3D Printer 2": "available",
@@ -165,66 +188,66 @@
     "3D Printer 4": "available"
   };
 
+  let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+
   function updateMachineOptions() {
     const machineSelect = document.getElementById("machine");
-    machineSelect.innerHTML = "";
-
+    machineSelect.innerHTML = "<option value=''>-- เลือกเครื่อง --</option>";
     for (const [machine, status] of Object.entries(machineStatus)) {
       const option = document.createElement("option");
       option.value = machine;
       option.textContent = machine + (status === "repair" ? " (ซ่อมอยู่)" : "");
-      if (status === "repair") {
-        option.disabled = true;
-      }
+      option.disabled = status === "repair";
       machineSelect.appendChild(option);
     }
   }
 
+  function cleanOldBookings() {
+    const today = new Date();
+    bookings = bookings.filter(b => new Date(b.date) >= new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1));
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+  }
+
+  function updateBookingTable() {
+    const tbody = document.querySelector("#bookingTable tbody");
+    tbody.innerHTML = "";
+    bookings.forEach(b => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${b.name}</td><td>${b.machine}</td><td>${b.date}</td><td>${b.timeslot}</td>`;
+      tbody.appendChild(row);
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    cleanOldBookings();
     updateMachineOptions();
+    updateBookingTable();
 
-    const bookingForm = document.getElementById("bookingForm");
-
-    bookingForm.addEventListener("submit", (e) => {
+    document.getElementById("bookingForm").addEventListener("submit", e => {
       e.preventDefault();
 
-      const name = document.getElementById("bookingName").value.trim();
+      const name = document.getElementById("name").value.trim();
       const machine = document.getElementById("machine").value;
-      const date = document.getElementById("bookingDate").value;
-      const time = document.getElementById("bookingTime").value;
+      const date = document.getElementById("date").value;
+      const timeslot = document.getElementById("timeslot").value;
+      const message = document.getElementById("message");
 
-      if (!name || !machine || !date || !time) {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      if (machineStatus[machine] === "repair") {
+        message.textContent = "❌ เครื่องนี้กำลังซ่อมอยู่ ไม่สามารถจองได้";
         return;
       }
 
-      if(machineStatus[machine] === "repair"){
-        alert("เครื่องนี้กำลังซ่อมอยู่ ไม่สามารถจองได้");
+      const duplicate = bookings.some(b => b.machine === machine && b.date === date && b.timeslot === timeslot);
+      if (duplicate) {
+        message.textContent = "❌ เครื่องนี้ถูกจองแล้วในช่วงเวลานี้";
         return;
       }
 
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("machine", machine);
-      formData.append("date", date);
-      formData.append("time", time);
-
-      fetch(scriptURL, {
-        method: "POST",
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          bookingForm.reset();
-          alert("✅ จองสำเร็จแล้ว!");
-        } else {
-          alert("❌ ส่งข้อมูลไม่สำเร็จ");
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อ");
-      });
+      bookings.push({ name, machine, date, timeslot });
+      localStorage.setItem("bookings", JSON.stringify(bookings));
+      updateBookingTable();
+      message.textContent = "✅ จองสำเร็จแล้ว";
+      document.getElementById("bookingForm").reset();
     });
   });
 </script>
