@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ========== สไตล์ประกาศข่าวสาร (กล่องข่าว) ========== */
+    /* ========== สไตล์กล่องข่าวประชาสัมพันธ์ ========== */
     .news-section {
       padding: 40px 20px;
       background-color: #fff;
@@ -62,61 +62,14 @@
       text-decoration: underline;
     }
 
-    /* ========== สไตล์แถบประชาสัมพันธ์ล่างจอ (แบบแจ้งเตือน) ========== */
-    .announcement-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #ff8000;
-      color: #fff;
-      padding: 10px 20px;
-      font-size: 18px;
-      font-weight: bold;
-      box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .announcement-poster {
-      height: 100px;
-      border-radius: 5px;
-      object-fit: contain;
-    }
-
-    .announcement-text-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      width: 100%;
-      max-width: 1200px;
-    }
-
-    .announcement-text-container p {
-      margin: 0;
-      flex: 1;
-    }
-
-    .close-btn {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 22px;
-      cursor: pointer;
-      padding: 0;
-      line-height: 1;
-    }
-
+    /* ========== ป้องกันแถบแจ้งเตือนล่างจอบังเนื้อหา ========== */
     main, footer {
-      padding-bottom: 110px; /* ป้องกันโดนแถบแจ้งเตือนทับ */
+      padding-bottom: 110px;
     }
   </style>
 </head>
 <body>
+  <!-- 🔶 ส่วนหัวเว็บไซต์ -->
   <header>
     <div class="header-inner">
       <img src="crop.png" alt="โลโก้ Predictive Maintenance" class="logo" />
@@ -130,54 +83,53 @@
     </div>
   </header>
 
+  <!-- 🔶 ข่าวสารประชาสัมพันธ์ (ย้ายไว้ด้านบนสุด) -->
+  <section class="news-section">
+    <h2>ข่าวสารประชาสัมพันธ์</h2>
+    <div class="news-card">
+      <img  src="gggg.png" alt="ข่าวประชาสัมพันธ์" class="news-image">
+      <div class="news-content">
+        <h3>อาคารเครื่องมือ 6</h3>
+        <p>ทางมหาวิทยาลัยจะมีการดับไฟประมาณ 1 ชั่วโมง เวลา 15.00 – 16.00 น. โปรดเตรียมการล่วงหน้า</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔷 เนื้อหาหลัก -->
   <main>
+    <!-- 🔸 แบนเนอร์ -->
     <section class="hero">
       <img src="AMER1.webp" alt="รูปเครื่องพิมพ์ 3 มิติ" class="hero-image" />
       <div class="hero-text">Predictive maintenance 3D printer</div>
     </section>
 
-    <!-- 🔷 เมนูหลัก -->
+    <!-- 🔸 เมนูหลัก -->
     <section class="section">
       <div class="card">
         <a href="status.html">
-          <img src="dd.png" alt="ไอคอนแสดงสถานะเครื่องพิมพ์ 3 มิติ" />
+          <img src="dd.png" alt="สถานะเครื่องพิมพ์" />
           <h3>สถานะการทำงาน</h3>
         </a>
       </div>
       <div class="card">
         <a href="troubleshoot.html">
-          <img src="AKI.webp" alt="ไอคอนแนะนำการแก้ปัญหา" />
+          <img src="AKI.webp" alt="การแก้ปัญหาเบื้องต้น" />
           <h3>วิธีการแก้ปัญหาเบื้องต้น</h3>
         </a>
       </div>
       <div class="card">
         <a href="maintenance.html">
-          <img src="all.jpg" alt="ไอคอนแสดงการบำรุงรักษาเครื่อง" />
+          <img src="all.jpg" alt="การบำรุงรักษา" />
           <h3>การบำรุงรักษา</h3>
         </a>
       </div>
       <div class="card">
         <a href="booking.html">
-          <img src="Ohio.avif" alt="ไอคอนแสดงการบำรุงรักษาเครื่อง" />
+          <img src="Ohio.avif" alt="ระบบจองเครื่อง" />
           <h3>ระบบจองเครื่อง 3D Printer</h3>
         </a>
       </div>
     </section>
   </main>
-
-  <!-- 🔶 ข่าวประชาสัมพันธ์ -->
-  <section class="news-section">
-    <h2>ข่าวสารประชาสัมพันธ์</h2>
-    <div class="news-card">
-      <img src="Blue and Yellow Illustrative Save Electricity Poster.png" alt="ข่าวประชาสัมพันธ์" class="news-image">
-      <div class="news-content">
-        <h3>อาคารเครื่อมือ 6</h3>
-        <p>ทางมหาวิทยาลัยได้มีการดับไฟมหาวิทยาลัยประมาณ 1 ชั่วโมง เวลา 15.00 – 16.00 น.</p>
-      </div>
-    </div>
-  </section>
-
-  
-  
 </body>
 </html>
